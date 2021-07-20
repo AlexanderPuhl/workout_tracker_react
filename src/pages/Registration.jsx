@@ -8,7 +8,7 @@ function RegistrationPage() {
   const { setAuthenticated } = useAuthenticated();
   const history = useHistory();
   const { values, updateValue } = useForm({
-    email: "alex@gmail.com",
+    username: "testUser",
     password: "supersecret",
     confirmPassword: "supersecret",
   });
@@ -17,8 +17,8 @@ function RegistrationPage() {
 
   async function handleClick(e) {
     e.preventDefault();
-    const user = await submitRegistration(values);
-    if (user) {
+    const authToken = await submitRegistration(values);
+    if (authToken) {
       setAuthenticated(true);
       history.push("/dashboard");
     }
@@ -29,13 +29,13 @@ function RegistrationPage() {
       <h2>Registration Page</h2>
       <form onSubmit={handleClick}>
         <fieldset>
-          <label htmlFor="email">
-            Email:
+          <label htmlFor="username">
+            Username:
             <input
-              type="email"
-              name="email"
-              id="email"
-              value={values.email}
+              type="text"
+              name="username"
+              id="username"
+              value={values.username}
               onChange={updateValue}
               required
             />
