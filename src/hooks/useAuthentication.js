@@ -10,25 +10,24 @@ export default function useAuthentication({ values }) {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  async function submitLogin(values) {
+  function submitLogin(values) {
     setLoading(true);
     setError(false);
-
-    return fetch(`${API_BASE_URL}/authentication`, {
+    return fetch(`${API_BASE_URL}/user/login`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify({
         strategy: "local",
-        email: values.email,
+        username: values.username,
         password: values.password,
       }),
     })
       .then((res) => res.json())
-      .then(({ accessToken, user }) => {
-        storeAuthInfo(accessToken);
-        return user;
+      .then(({ authToken }) => {
+        storeAuthInfo(authToken);
+        return authToken;
       })
       .catch((e) => {
         console.log(e);
@@ -39,13 +38,13 @@ export default function useAuthentication({ values }) {
     setLoading(true);
     setError(false);
 
-    await fetch(`${API_BASE_URL}/users`, {
+    await fetch(`${API_BASE_URL}/user/create`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        email: values.email,
+        username: values.username,
         password: values.password,
         roleId: 1,
       }),
@@ -55,14 +54,14 @@ export default function useAuthentication({ values }) {
         console.log(e);
       });
 
-    return fetch(`${API_BASE_URL}/authentication`, {
+    return fetch(`${API_BASE_URL}/user/login`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify({
         strategy: "local",
-        email: values.email,
+        username: values.username,
         password: values.password,
       }),
     })

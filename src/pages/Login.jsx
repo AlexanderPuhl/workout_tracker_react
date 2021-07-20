@@ -8,8 +8,8 @@ function LoginPage() {
   const { setAuthenticated } = useAuthenticated();
   const history = useHistory();
   const { values, updateValue } = useForm({
-    email: "alex@gmail.com",
-    password: "supersecret",
+    username: "alex",
+    password: "thinkful123",
   });
 
   const { error, loading, submitLogin } = useAuthentication({
@@ -18,8 +18,8 @@ function LoginPage() {
 
   async function handleClick(e) {
     e.preventDefault();
-    const user = await submitLogin(values);
-    if (user) {
+    const authToken = await submitLogin(values);
+    if (authToken) {
       setAuthenticated(true);
       history.push("/dashboard");
     }
@@ -30,13 +30,13 @@ function LoginPage() {
       <h2>Login Page</h2>
       <form onSubmit={handleClick}>
         <fieldset>
-          <label htmlFor="email">
-            Email:
+          <label htmlFor="username">
+            username:
             <input
-              type="email"
-              name="email"
-              id="email"
-              value={values.email}
+              type="text"
+              name="username"
+              id="username"
+              value={values.username}
               onChange={updateValue}
               required
             />
