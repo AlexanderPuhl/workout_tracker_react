@@ -62,7 +62,7 @@ function RegistrationPage() {
               required
             />
           </label>
-          <div>{error ? <p>Error: {error}</p> : ""}</div>
+          {error ? <p>Error: {error}</p> : ""}
           <button type="submit" disabled={loading}>
             {loading ? "Registering" : "Register"}
           </button>{" "}

@@ -2,13 +2,12 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import AuthenticateRoute from "./AuthenticateRoute.jsx";
 import Header from "./Header.jsx";
-import LoginPage from "../pages/Login.jsx";
-import RegistrationPage from "../pages/Registration.jsx";
-
 import LandingPage from "../pages/Landing.jsx";
 import DashboardPage from "../pages/Dashboard.jsx";
 import ProfilePage from "../pages/Profile.jsx";
 import { useAuthenticated } from "../context/auth-context.jsx";
+import "../styles/normalize.css";
+import GlobalStyles from "../styles/GlobalStyles";
 
 function App() {
   const { isAuthenticated } = useAuthenticated();
@@ -16,14 +15,13 @@ function App() {
     isAuthenticated ? <Redirect to="/dashboard" /> : <Component />;
   return (
     <>
+      <GlobalStyles />
       <Header />
       <main>
         <Switch>
           <Route path="/" exact>
             {authedRedirect(LandingPage)}
           </Route>
-          <Route path="/login">{authedRedirect(LoginPage)}</Route>
-          <Route path="/register">{authedRedirect(RegistrationPage)}</Route>
           <AuthenticateRoute path="/dashboard">
             <DashboardPage />
           </AuthenticateRoute>
