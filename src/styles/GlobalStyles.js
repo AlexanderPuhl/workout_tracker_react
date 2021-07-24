@@ -7,6 +7,7 @@ const GlobalStyles = createGlobalStyle`
     --white: #fff;
   }
   html {
+    font-family: 'Roboto', sans-serif;
     font-size: 10px;
   }
   body {
