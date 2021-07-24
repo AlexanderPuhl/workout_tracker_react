@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from "react";
-import useWorkoutApi from "../hooks/useWorkoutApi";
+// import useWorkoutApi from "../hooks/useWorkoutApi";
 import useWorkoutLogsApi from "../hooks/useWorkoutLogsApi";
-import WorkoutLog from "../components/workout.jsx";
+import WorkoutCard from "../components/workoutCard.jsx";
 
 export default function DashboardPage() {
-  const { getAllWorkouts } = useWorkoutApi();
+  // const { getAllWorkouts } = useWorkoutApi();
   const { getAllWorkoutLogs } = useWorkoutLogsApi();
-  const [workouts, setWorkouts] = useState(null);
+  // const [workouts, setWorkouts] = useState(null);
   const [workoutLogs, setWorkoutLogs] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
-    const getAllWorkoutsEffect = async () => {
-      try {
-        const data = await getAllWorkouts();
-        console.log(data);
-        setWorkouts(data);
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
+    // const getAllWorkoutsEffect = async () => {
+    //   try {
+    //     const data = await getAllWorkouts();
+    //     setWorkouts(data);
+    //   } catch (e) {
+    //     console.log(e.message);
+    //   }
+    // };
     const getAllWorkoutLogsEffect = async () => {
       try {
         const data = await getAllWorkoutLogs();
-        console.log(data);
         setWorkoutLogs(data);
       } catch (e) {
         console.log(e.message);
       }
     };
-    getAllWorkoutsEffect();
+    // getAllWorkoutsEffect();
     getAllWorkoutLogsEffect();
   }, []);
 
@@ -46,7 +44,10 @@ export default function DashboardPage() {
     WorkoutLogsList = (
       <div>
         {workoutLogs.map((workoutLog) => (
-          <WorkoutLog workoutLog={workoutLog} key={workoutLog.workout_log_id} />
+          <WorkoutCard
+            workoutLog={workoutLog}
+            key={workoutLog.workout_log_id}
+          />
         ))}
       </div>
     );
