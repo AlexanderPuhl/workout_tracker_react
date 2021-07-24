@@ -4,13 +4,17 @@ const GlobalStyles = createGlobalStyle`
   :root {
     --black: #2e2e2e;
     --gray: #e3e3e3;
-    --white: #fff;
+    --main-bg-color: #3E3B39;
+    --secondary-bg-color: #525c6e;
+    --white: #F2F2F2;
   }
   html {
     font-family: 'Roboto', sans-serif;
     font-size: 10px;
   }
   body {
+    background-color: var(--main-bg-color);
+    color: var(--white);
     font-size: 1.6rem;
     margin: 0 auto;
     max-width: 1440px;
@@ -18,10 +22,11 @@ const GlobalStyles = createGlobalStyle`
   main {
     padding: 1rem;
   }
+  h1,h2,h3,h4,h5,h6 {
+    text-align: center;
+  }
   a {
-    background-color: var(--white);
-    border: 1px solid var(--black);
-    border-radius: 5px;
+    color: var(--white);
     padding: 1rem 1.5rem;
     text-decoration: none;
   }
@@ -52,14 +57,12 @@ const GlobalStyles = createGlobalStyle`
     width: 100%;
   }
   button {
-    background-color: var(--white);
-    border: 1px solid var(--black);
-    border-radius: 5px;
+    background: transparent;
+    border: none;
+    color: var(--white);
     cursor: pointer;
     padding: 1rem 1.5rem;
-    margin: 1rem 0;
-    max-width: 600px;
-    width: 100%;
+    margin: 0
   }
 `;
 

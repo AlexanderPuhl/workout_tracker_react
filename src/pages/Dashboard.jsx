@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+
 // import useWorkoutApi from "../hooks/useWorkoutApi";
 import useWorkoutLogsApi from "../hooks/useWorkoutLogsApi";
 import WorkoutCard from "../components/workoutCard.jsx";
+
+const DashboardStyles = styled.section``;
 
 export default function DashboardPage() {
   // const { getAllWorkouts } = useWorkoutApi();
@@ -53,9 +57,9 @@ export default function DashboardPage() {
     );
   }
   return (
-    <section>
-      <h1>Dashboard Page</h1>
+    <DashboardStyles>
+      <h1>Workouts</h1>
       {WorkoutLogsList}
-    </section>
+    </DashboardStyles>
   );
 }

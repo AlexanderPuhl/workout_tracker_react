@@ -4,7 +4,7 @@ import styled from "styled-components";
 import returnDateTime from "../utils/dateTime";
 
 const WorkoutLogStyles = styled.div`
-  border: 1px solid var(--black);
+  border: 1px solid var(--gray);
   border-radius: 5px;
   padding: 1rem;
   margin-bottom: 1rem;

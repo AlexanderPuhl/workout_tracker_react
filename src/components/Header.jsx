@@ -1,20 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { clearAuthToken } from "../utils/local-storage";
 import { useAuthenticated } from "../context/auth-context.jsx";
 
 const HeaderStyles = styled.header`
-  background-color: var(--gray);
-  padding: 1rem;
-  ul {
+  align-items: center;
+  background-color: var(--secondary-bg-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  position: relative;
+  .header-logo {
+    width: 5rem;
+  }
+  nav {
     align-items: center;
+    background-color: var(--secondary-bg-color);
     display: flex;
-    li {
-      list-style: none;
-      margin-right: 1rem;
-      button {
-        margin: 0;
+    flex-direction: column;
+    left: 0;
+    padding: 0 0 1rem;
+    position: absolute;
+    transform: translateY(-210%);
+    transition: transform 0.3s ease-out;
+    top: 59px;
+    width: 100%;
+    &.active {
+      transform: translateY(0px);
+    }
+    ul {
+      align-items: center;
+      display: flex;
+      li {
+        list-style: none;
+        margin-right: 1rem;
+        button {
+          margin: 0;
+        }
+      }
+    }
+  }
+  .hamburger-icon {
+    background-color: transparent;
+    border-color: transparent;
+    margin: 0;
+    padding-right: 1.2rem;
+    width: auto;
+    &:hover {
+      cursor: pointer;
+    }
+
+    div {
+      background-color: var(--white);
+      border-radius: 5px;
+      height: 5px;
+      margin: 6px 0;
+      transition: 0.4s;
+      width: 35px;
+      &.active {
+        &.bar1 {
+          transform: rotate(-45deg) translate(-9px, 6px);
+        }
+        &.bar2 {
+          opacity: 0;
+        }
+        &.bar3 {
+          transform: rotate(45deg) translate(-8px, -8px);
+        }
       }
     }
   }
@@ -22,8 +75,14 @@ const HeaderStyles = styled.header`
 
 export default function Header() {
   const { isAuthenticated, setAuthenticated } = useAuthenticated();
+  const [navActive, setNav] = useState(false);
+
+  function clickHamburger() {
+    setNav(!navActive);
+  }
 
   function logout() {
+    setNav(false);
     clearAuthToken();
     setAuthenticated(false);
   }
@@ -32,33 +91,48 @@ export default function Header() {
   let logoutButton = null;
   if (isAuthenticated) {
     homeButton = (
-      <li>
-        <Link to="/dashboard">Dashboard</Link>
-      </li>
+      <Link onClick={() => setNav(!navActive)} to="/dashboard">
+        Dashboard
+      </Link>
     );
     profile = (
-      <li>
-        <Link to="/profile">Profile</Link>
-      </li>
+      <Link onClick={() => setNav(!navActive)} to="/profile">
+        Profile
+      </Link>
     );
     logoutButton = (
-      <li>
-        <button type="button" onClick={logout}>
-          Logout
-        </button>
-      </li>
+      <button type="button" onClick={logout}>
+        Logout
+      </button>
     );
   }
 
   return (
     <HeaderStyles>
-      <nav>
-        <ul>
-          {homeButton}
-          {profile}
-          {logoutButton}
-        </ul>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="header-logo"
+        id="Outline"
+        fill="white"
+        viewBox="0 0 512 512"
+      >
+        <path d="M472,224V152a31.978,31.978,0,0,0-48.2-27.577A32,32,0,0,0,360,128v96H152V128a32,32,0,0,0-63.795-3.577A31.978,31.978,0,0,0,40,152v72a32,32,0,0,0,0,64v72a31.978,31.978,0,0,0,48.205,27.577A32,32,0,0,0,152,384V288H360v96a32,32,0,0,0,63.8,3.577A31.978,31.978,0,0,0,472,360V288a32,32,0,0,0,0-64ZM40,272a16,16,0,0,1,0-32ZM72,376a16.019,16.019,0,0,1-16-16V152a16,16,0,0,1,32,0V360A16.019,16.019,0,0,1,72,376Zm64,8a16,16,0,0,1-32,0V128a16,16,0,0,1,32,0Zm16-112V240H360v32ZM408,384a16,16,0,0,1-32,0V128a16,16,0,0,1,32,0Zm48-24a16,16,0,0,1-32,0V152a16,16,0,0,1,32,0Zm16-88V240a16,16,0,0,1,0,32Z" />
+      </svg>
+      <nav className={`${navActive ? "active" : ""}`}>
+        {homeButton}
+        {profile}
+        {logoutButton}
       </nav>
+      <button
+        onClick={() => clickHamburger()}
+        type="button"
+        id="navbar-toggle"
+        className="hamburger-icon"
+      >
+        <div className={`bar1 ${navActive ? "active" : ""}`} />
+        <div className={`bar2 ${navActive ? "active" : ""}`} />
+        <div className={`bar3 ${navActive ? "active" : ""}`} />
+      </button>
     </HeaderStyles>
   );
 }
