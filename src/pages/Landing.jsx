@@ -8,15 +8,16 @@ const LandingPageStyles = styled.section`
   border: 1px solid var(--gray);
   border-radius: 5px;
   padding: 1rem 2rem;
-  margin: 2rem auto 0;
+  margin: 1rem auto 0;
   max-width: 630px;
   text-align: center;
   h1 {
     font-size: 2.5rem;
+    margin: 0;
   }
   .or-wrapper {
     border-top: 1px solid var(--gray);
-    margin: 2rem 0 1rem;
+    margin: 2rem 0 0;
     position: relative;
     span {
       background-color: var(--main-bg-color);

@@ -86,7 +86,11 @@ export default function Header() {
     clearAuthToken();
     setAuthenticated(false);
   }
-  let homeButton = <Link to="/">Home</Link>;
+  let homeButton = (
+    <Link onClick={() => setNav(!navActive)} to="/">
+      Home
+    </Link>
+  );
   let profile = null;
   let logoutButton = null;
   if (isAuthenticated) {
