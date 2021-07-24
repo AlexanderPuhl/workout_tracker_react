@@ -12,7 +12,6 @@ const WorkoutLogStyles = styled.div`
 
 export default function WorkoutLog({ workoutLog }) {
   const dateAndTime = returnDateTime(workoutLog.created_on);
-  console.log(`dateAndTime: ${dateAndTime}`);
   return (
     <WorkoutLogStyles>
       <p>
