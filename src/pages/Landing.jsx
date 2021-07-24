@@ -5,7 +5,7 @@ import Login from "../components/Login.jsx";
 import Registration from "../components/Registration.jsx";
 
 const LandingPageStyles = styled.section`
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 5px;
   padding: 2rem 6rem;
   margin: 10rem auto 0;

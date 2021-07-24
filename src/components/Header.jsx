@@ -8,9 +8,14 @@ const HeaderStyles = styled.header`
   background-color: var(--gray);
   padding: 1rem;
   ul {
+    align-items: center;
     display: flex;
     li {
       list-style: none;
+      margin-right: 1rem;
+      button {
+        margin: 0;
+      }
     }
   }
 `;

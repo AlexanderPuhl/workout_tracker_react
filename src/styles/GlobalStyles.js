@@ -14,8 +14,12 @@ const GlobalStyles = createGlobalStyle`
     margin: 0 auto;
     max-width: 1440px;
   }
+  main {
+    padding: 1rem;
+  }
   a {
-    border: 1px solid black;
+    background-color: var(--white);
+    border: 1px solid var(--black);
     border-radius: 5px;
     padding: 1rem 1.5rem;
     text-decoration: none;
@@ -47,6 +51,9 @@ const GlobalStyles = createGlobalStyle`
     width: 100%;
   }
   button {
+    background-color: var(--white);
+    border: 1px solid var(--black);
+    border-radius: 5px;
     cursor: pointer;
     padding: 1rem 1.5rem;
     margin: 1rem 0;

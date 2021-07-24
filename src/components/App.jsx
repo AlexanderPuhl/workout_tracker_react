@@ -1,6 +1,7 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import AuthenticateRoute from "./AuthenticateRoute.jsx";
+import Header from "./Header.jsx";
 import LandingPage from "../pages/Landing.jsx";
 import DashboardPage from "../pages/Dashboard.jsx";
 import ProfilePage from "../pages/Profile.jsx";
@@ -16,7 +17,7 @@ function App() {
   return (
     <>
       <GlobalStyles />
-
+      <Header />
       <main>
         <Switch>
           <Route path="/" exact>
