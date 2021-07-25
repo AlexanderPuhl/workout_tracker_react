@@ -10,7 +10,7 @@ export default function useAuthentication({ values }) {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  function submitLogin(values) {
+  function submitLogin(loginValues) {
     setLoading(true);
     setError(false);
     return fetch(`${API_BASE_URL}/user/login`, {
@@ -20,8 +20,8 @@ export default function useAuthentication({ values }) {
       },
       body: JSON.stringify({
         strategy: "local",
-        username: values.username,
-        password: values.password,
+        username: loginValues.username,
+        password: loginValues.password,
       }),
     })
       .then((res) => res.json())
@@ -34,7 +34,7 @@ export default function useAuthentication({ values }) {
       });
   }
 
-  async function submitRegistration(e) {
+  async function submitRegistration(registerValues) {
     setLoading(true);
     setError(false);
 
@@ -44,8 +44,8 @@ export default function useAuthentication({ values }) {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        username: values.username,
-        password: values.password,
+        username: registerValues.username,
+        password: registerValues.password,
         roleId: 1,
       }),
     })
