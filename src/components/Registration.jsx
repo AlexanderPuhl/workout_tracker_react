@@ -26,37 +26,36 @@ function RegistrationPage() {
 
   return (
     <div>
-      <h2>Registration Page</h2>
       <form onSubmit={handleClick}>
         <fieldset>
           <label htmlFor="username">
-            Username:
             <input
               type="text"
               name="username"
               id="username"
+              placeholder="Username"
               value={values.username}
               onChange={updateValue}
               required
             />
           </label>
           <label htmlFor="password">
-            password:
             <input
               type="password"
               name="password"
               id="password"
+              placeholder="Password"
               value={values.password}
               onChange={updateValue}
               required
             />
           </label>
           <label htmlFor="confirmPassword">
-            Confirm password:
             <input
               type="password"
               name="confirmPassword"
               id="confirmPassword"
+              placeholder="Confirm Password"
               value={values.confirmPassword}
               onChange={updateValue}
               required

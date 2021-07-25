@@ -1,8 +1,11 @@
 import React from "react";
 import { useHistory, withRouter } from "react-router-dom";
+import styled from "styled-components";
 import useAuthentication from "../hooks/useAuthentication";
 import { useAuthenticated } from "../context/auth-context.jsx";
 import useForm from "../hooks/useForm";
+
+const LoginPageStyles = styled.div``;
 
 function LoginPage() {
   const { setAuthenticated } = useAuthenticated();
@@ -26,27 +29,26 @@ function LoginPage() {
   }
 
   return (
-    <div>
-      <h2>Login Page</h2>
+    <LoginPageStyles>
       <form onSubmit={handleClick}>
         <fieldset>
           <label htmlFor="username">
-            username:
             <input
               type="text"
               name="username"
               id="username"
+              placeholder="Username"
               value={values.username}
               onChange={updateValue}
               required
             />
           </label>
           <label htmlFor="password">
-            password:
             <input
               type="password"
               name="password"
               id="password"
+              placeholder="Password"
               value={values.password}
               onChange={updateValue}
               required
@@ -62,7 +64,7 @@ function LoginPage() {
           </button>
         </fieldset>
       </form>
-    </div>
+    </LoginPageStyles>
   );
 }
 

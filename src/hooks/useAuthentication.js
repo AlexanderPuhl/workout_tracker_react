@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { API_BASE_URL } from "../config";
 import { saveAuthToken } from "../utils/local-storage";
+import API_BASE_URL from "../config";
 
 const storeAuthInfo = (accessToken) => {
   saveAuthToken(accessToken);
