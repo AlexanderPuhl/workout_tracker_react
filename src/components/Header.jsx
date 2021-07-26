@@ -114,11 +114,11 @@ export default function Header() {
   return (
     <HeaderStyles>
       <svg
-        xmlns="http://www.w3.org/2000/svg"
         className="header-logo"
-        id="Outline"
         fill="white"
+        id="Outline"
         viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path d="M472,224V152a31.978,31.978,0,0,0-48.2-27.577A32,32,0,0,0,360,128v96H152V128a32,32,0,0,0-63.795-3.577A31.978,31.978,0,0,0,40,152v72a32,32,0,0,0,0,64v72a31.978,31.978,0,0,0,48.205,27.577A32,32,0,0,0,152,384V288H360v96a32,32,0,0,0,63.8,3.577A31.978,31.978,0,0,0,472,360V288a32,32,0,0,0,0-64ZM40,272a16,16,0,0,1,0-32ZM72,376a16.019,16.019,0,0,1-16-16V152a16,16,0,0,1,32,0V360A16.019,16.019,0,0,1,72,376Zm64,8a16,16,0,0,1-32,0V128a16,16,0,0,1,32,0Zm16-112V240H360v32ZM408,384a16,16,0,0,1-32,0V128a16,16,0,0,1,32,0Zm48-24a16,16,0,0,1-32,0V152a16,16,0,0,1,32,0Zm16-88V240a16,16,0,0,1,0,32Z" />
       </svg>
@@ -128,10 +128,10 @@ export default function Header() {
         {logoutButton}
       </nav>
       <button
+        className="hamburger-icon"
+        id="navbar-toggle"
         onClick={() => clickHamburger()}
         type="button"
-        id="navbar-toggle"
-        className="hamburger-icon"
       >
         <div className={`bar1 ${navActive ? "active" : ""}`} />
         <div className={`bar2 ${navActive ? "active" : ""}`} />

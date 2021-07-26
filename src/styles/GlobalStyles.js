@@ -31,8 +31,8 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
   }
   ul {
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
 
   /* *****FORM STYLINGS***** */
@@ -52,8 +52,8 @@ const GlobalStyles = createGlobalStyle`
   }
   input {
     border-radius: 5px;
-    padding: 1.5rem 2rem;
     margin: 1rem 0;
+    padding: 1.5rem 2rem;
     width: 100%;
   }
   button {
@@ -61,9 +61,23 @@ const GlobalStyles = createGlobalStyle`
     border: none;
     color: var(--white);
     cursor: pointer;
-    padding: 1rem 1.5rem;
     margin: 0
+    padding: 1rem 1.5rem;
   }
-`;
+  /* *****END FORM STYLINGS***** */
+
+  /* *****MODAL-OVERLAY STYLINGS***** */
+  .modal-overlay {
+    background-color: #000;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    opacity: .7;
+    position: fixed;
+    z-index: 100;
+  }
+  /* *****END MODAL-OVERLAY STYLINGS***** */
+  `;
 
 export default GlobalStyles;
