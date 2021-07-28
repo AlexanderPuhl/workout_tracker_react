@@ -15,13 +15,13 @@ const WorkoutLogStyles = styled.div`
 `;
 
 export default function WorkoutLog({ workoutLog, toggleModal }) {
-  const dateAndTime = returnDateTime(workoutLog.created_on);
+  const dateAndTime = returnDateTime(workoutLog.workout_date_time);
   return (
-    <WorkoutLogStyles onClick={toggleModal}>
+    <WorkoutLogStyles onClick={() => toggleModal(workoutLog.workout_log_id)}>
       <p>
         {dateAndTime.date} {dateAndTime.time}
       </p>
-      <p>Notes: {workoutLog.note}</p>
+      <p>Notes: {workoutLog.workout_note}</p>
     </WorkoutLogStyles>
   );
 }

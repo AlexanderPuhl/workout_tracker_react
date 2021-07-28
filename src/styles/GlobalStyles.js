@@ -61,7 +61,7 @@ const GlobalStyles = createGlobalStyle`
     border: none;
     color: var(--white);
     cursor: pointer;
-    margin: 0
+    margin: 0;
     padding: 1rem 1.5rem;
   }
   /* *****END FORM STYLINGS***** */
@@ -78,6 +78,6 @@ const GlobalStyles = createGlobalStyle`
     z-index: 100;
   }
   /* *****END MODAL-OVERLAY STYLINGS***** */
-  `;
+`;
 
 export default GlobalStyles;
