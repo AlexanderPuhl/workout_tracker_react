@@ -1,50 +1,39 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import useWorkoutApi from "../hooks/useWorkoutApi";
-import useWorkoutLogsApi from "../hooks/useWorkoutLogsApi";
+import useGetAllApi from "../hooks/useGetAllApi";
 import WorkoutCard from "../components/workoutCard.jsx";
 import WorkoutModal from "../components/workoutModal.jsx";
 
 const DashboardStyles = styled.section``;
 
 export default function DashboardPage() {
-  const { getAllWorkouts } = useWorkoutApi();
-  const { getAllWorkoutLogs } = useWorkoutLogsApi();
-  const [workouts, setWorkouts] = useState(null);
-  const [workoutLogs, setWorkoutLogs] = useState(null);
+  const { getAllApi } = useGetAllApi();
+  const [allworkouts, setAllWorkouts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModal] = useState(false);
+  const [selectedWorkout, setSelectedWorkout] = useState(null);
 
   useEffect(async () => {
-    const getAllWorkoutsEffect = async () => {
+    const getAllEffect = async () => {
       try {
-        const data = await getAllWorkouts();
-        setWorkouts(data);
+        const data = await getAllApi();
+        setAllWorkouts(data);
       } catch (e) {
         console.log(e.message);
       }
     };
-    const getAllWorkoutLogsEffect = async () => {
-      try {
-        const data = await getAllWorkoutLogs();
-        setWorkoutLogs(data);
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
-    getAllWorkoutsEffect();
-    getAllWorkoutLogsEffect();
+    getAllEffect();
   }, []);
 
   useEffect(() => {
-    if (workoutLogs) {
+    if (allworkouts) {
       setLoading(false);
     }
-  }, [workoutLogs]);
+  }, [allworkouts]);
 
-  function toggleModalHandler() {
-    console.log(modalVisible);
+  function toggleModalHandler(index) {
+    setSelectedWorkout(index);
     setModal(!modalVisible);
   }
 
@@ -54,12 +43,8 @@ export default function DashboardPage() {
   } else {
     workoutLogsList = (
       <div>
-        {workoutLogs.map((workoutLog) => (
-          <WorkoutCard
-            key={workoutLog.workout_log_id}
-            toggleModal={toggleModalHandler}
-            workoutLog={workoutLog}
-          />
+        {allworkouts.map((workoutLog) => (
+          <WorkoutCard key={workoutLog.set_id} toggleModal={toggleModalHandler} workoutLog={workoutLog} />
         ))}
       </div>
     );
@@ -68,14 +53,9 @@ export default function DashboardPage() {
   let workoutModal = null;
   let modalOverlay = null;
   if (modalVisible) {
-    workoutModal = <WorkoutModal toggleModal={toggleModalHandler} />;
+    workoutModal = <WorkoutModal toggleModal={toggleModalHandler} workoutLog={allworkouts[selectedWorkout - 1]} />;
     modalOverlay = (
-      <div
-        className="modal-overlay"
-        onKeyUp={toggleModalHandler}
-        onClick={toggleModalHandler}
-        role="none"
-      />
+      <div className="modal-overlay" onKeyUp={toggleModalHandler} onClick={() => toggleModalHandler(0)} role="none" />
     );
   }
   return (

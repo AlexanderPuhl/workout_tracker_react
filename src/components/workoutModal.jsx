@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import returnDateTime from "../utils/dateTime";
 
 const WorkoutModalStyles = styled.div`
-  background-color: var(--white);
-  color: var(--black);
+  background-color: var(--main-bg-color);
+  border: 1px solid var(--gray);
+  color: var(--white);
   left: 50%;
   max-width: 1280px;
   padding: 1rem;
@@ -18,19 +20,33 @@ const WorkoutModalStyles = styled.div`
     position: fixed;
     right: 0;
     top: 0;
+    transition: width 0.3s;
     width: 20px;
+    &:hover {
+      width: 25px;
+    }
   }
 `;
 
-export default function workoutModal({ toggleModal }) {
+export default function workoutModal({ toggleModal, workoutLog }) {
+  const setDateTime = returnDateTime(workoutLog.set_date_time);
   return (
     <WorkoutModalStyles>
       <h1>Workout Modal</h1>
-      <p>More Stuff coming...</p>
+      <p>Username: {workoutLog.username}</p>
+      <p>workout Log ID: {workoutLog.workout_log_id}</p>
+      <p>Exercise: {workoutLog.exercise}</p>
+      <p>
+        {workoutLog.number_of_sets} sets of {workoutLog.number_of_reps} at {workoutLog.weight}lbs
+      </p>
+      <p>
+        Date and Time: {setDateTime.date} {setDateTime.time}
+      </p>
+      <p>Note: {workoutLog.set_note}</p>
       <svg
         className="close-modal"
-        fill="black"
-        onClick={toggleModal}
+        fill="#f2f2f2"
+        onClick={() => toggleModal(0)}
         viewBox="0 0 329.26933 329"
         xmlns="http://www.w3.org/2000/svg"
       >
