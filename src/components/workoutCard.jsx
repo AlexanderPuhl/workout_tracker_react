@@ -17,10 +17,11 @@ const WorkoutLogStyles = styled.div`
 export default function WorkoutLog({ workoutLog, toggleModal }) {
   const dateAndTime = returnDateTime(workoutLog.workout_date_time);
   return (
-    <WorkoutLogStyles onClick={() => toggleModal(workoutLog.workout_log_id)}>
+    <WorkoutLogStyles id={workoutLog.set_id} onClick={() => toggleModal(workoutLog.set_id)}>
       <p>
         {dateAndTime.date} {dateAndTime.time}
       </p>
+      <p>Set ID: {workoutLog.set_id}</p>
       <p>Notes: {workoutLog.workout_note}</p>
     </WorkoutLogStyles>
   );

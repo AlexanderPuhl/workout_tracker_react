@@ -34,7 +34,7 @@ export default function workoutModal({ toggleModal, workoutLog }) {
     <WorkoutModalStyles>
       <h1>Workout Modal</h1>
       <p>Username: {workoutLog.username}</p>
-      <p>workout Log ID: {workoutLog.workout_log_id}</p>
+      <p>workout Set ID: {workoutLog.set_id}</p>
       <p>Exercise: {workoutLog.exercise}</p>
       <p>
         {workoutLog.number_of_sets} sets of {workoutLog.number_of_reps} at {workoutLog.weight}lbs

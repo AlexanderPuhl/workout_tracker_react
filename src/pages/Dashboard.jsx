@@ -18,6 +18,18 @@ export default function DashboardPage() {
     const getAllEffect = async () => {
       try {
         const data = await getAllApi();
+        const groupedData = {};
+
+        for (let i = 0; i < data.length; i += 1) {
+          console.log(data[i]);
+          console.log(`workout_log_id_${data[i].workout_log_id}`);
+
+          if (!(`workout_log_id_${data[i].workout_log_id}` in groupedData)) {
+            groupedData[`workout_log_id_${data[i].workout_log_id}`] = {};
+          }
+        }
+        console.log(groupedData);
+
         setAllWorkouts(data);
       } catch (e) {
         console.log(e.message);
@@ -33,6 +45,7 @@ export default function DashboardPage() {
   }, [allworkouts]);
 
   function toggleModalHandler(index) {
+    console.log(index);
     setSelectedWorkout(index);
     setModal(!modalVisible);
   }
@@ -44,6 +57,7 @@ export default function DashboardPage() {
     workoutLogsList = (
       <div>
         {allworkouts.map((workoutLog) => (
+          // console.log(workoutLog);
           <WorkoutCard key={workoutLog.set_id} toggleModal={toggleModalHandler} workoutLog={workoutLog} />
         ))}
       </div>
