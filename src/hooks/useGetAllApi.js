@@ -2,7 +2,6 @@ import { useState } from "react";
 import { loadAuthToken } from "../utils/local-storage";
 import API_BASE_URL from "../config";
 
-
 export default function useGetAllApi() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);

@@ -1,8 +1,12 @@
-import React from 'react';
-import '../styles/Spinner.css';
+import React from "react";
+import "../styles/Spinner.css";
 
 const LoadSpinner = () => (
-  <div className="lds-facebook"><div></div><div></div><div></div></div>
+  <div className="lds-facebook">
+    <div />
+    <div />
+    <div />
+  </div>
 );
 
 export default LoadSpinner;

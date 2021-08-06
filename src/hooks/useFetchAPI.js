@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { loadAuthToken } from "../utils/local-storage";
 import API_BASE_URL from "../config";
 
