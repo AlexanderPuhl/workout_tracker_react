@@ -1,36 +1,28 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import useGetAllApi from "../hooks/useGetAllApi";
+import useWorkoutLogsApi from "../hooks/useWorkoutLogsApi";
 import WorkoutCard from "../components/workoutCard.jsx";
+import ConfirmModal from "../components/ConfirmModal.jsx";
 import WorkoutModal from "../components/workoutModal.jsx";
+
+import findWithAttr from "../utils/findIndex";
 
 const DashboardStyles = styled.section``;
 
 export default function DashboardPage() {
-  const { getAllApi } = useGetAllApi();
-  const [allworkouts, setAllWorkouts] = useState(null);
+  const { deleteAWorkoutLog, getAllWorkoutLogs } = useWorkoutLogsApi();
+  const [allWorkoutLogs, setWorkoutLogs] = useState(null);
+
   const [loading, setLoading] = useState(true);
-  const [modalVisible, setModal] = useState(false);
+  const [workoutModalVisible, setWorkoutModal] = useState(false);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
 
   useEffect(async () => {
     const getAllEffect = async () => {
       try {
-        const data = await getAllApi();
-        const groupedData = {};
-
-        for (let i = 0; i < data.length; i += 1) {
-          console.log(data[i]);
-          console.log(`workout_log_id_${data[i].workout_log_id}`);
-
-          if (!(`workout_log_id_${data[i].workout_log_id}` in groupedData)) {
-            groupedData[`workout_log_id_${data[i].workout_log_id}`] = {};
-          }
-        }
-        console.log(groupedData);
-
-        setAllWorkouts(data);
+        const workoutLogsData = await getAllWorkoutLogs();
+        setWorkoutLogs(workoutLogsData);
       } catch (e) {
         console.log(e.message);
       }
@@ -39,15 +31,25 @@ export default function DashboardPage() {
   }, []);
 
   useEffect(() => {
-    if (allworkouts) {
+    if (allWorkoutLogs) {
       setLoading(false);
     }
-  }, [allworkouts]);
+  }, [allWorkoutLogs]);
 
-  function toggleModalHandler(index) {
-    console.log(index);
+  function toggleModalHandler(workoutLogID) {
+    const index = findWithAttr(allWorkoutLogs, "workout_log_id", workoutLogID);
     setSelectedWorkout(index);
-    setModal(!modalVisible);
+    setWorkoutModal(!workoutModalVisible);
+  }
+
+  async function deleteWorkoutLogHandler(workoutLogID) {
+    try {
+      await deleteAWorkoutLog(workoutLogID);
+      const workoutLogsData = await getAllWorkoutLogs();
+      setWorkoutLogs(workoutLogsData);
+    } catch (e) {
+      console.log(e.message);
+    }
   }
 
   let workoutLogsList;
@@ -56,9 +58,13 @@ export default function DashboardPage() {
   } else {
     workoutLogsList = (
       <div>
-        {allworkouts.map((workoutLog) => (
-          // console.log(workoutLog);
-          <WorkoutCard key={workoutLog.set_id} toggleModal={toggleModalHandler} workoutLog={workoutLog} />
+        {allWorkoutLogs.map((workoutLog) => (
+          <WorkoutCard
+            key={workoutLog.workout_log_id}
+            deleteWorkoutLog={deleteWorkoutLogHandler}
+            toggleWorkoutModal={toggleModalHandler}
+            workoutLog={workoutLog}
+          />
         ))}
       </div>
     );
@@ -66,8 +72,10 @@ export default function DashboardPage() {
 
   let workoutModal = null;
   let modalOverlay = null;
-  if (modalVisible) {
-    workoutModal = <WorkoutModal toggleModal={toggleModalHandler} workoutLog={allworkouts[selectedWorkout - 1]} />;
+  if (workoutModalVisible) {
+    workoutModal = (
+      <WorkoutModal toggleWorkoutModal={toggleModalHandler} workoutLog={allWorkoutLogs[selectedWorkout]} />
+    );
     modalOverlay = (
       <div className="modal-overlay" onKeyUp={toggleModalHandler} onClick={() => toggleModalHandler(0)} role="none" />
     );
