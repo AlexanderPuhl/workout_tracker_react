@@ -4,6 +4,7 @@ import AuthenticateRoute from "./AuthenticateRoute.jsx";
 import Header from "./Header.jsx";
 import LandingPage from "../pages/Landing.jsx";
 import DashboardPage from "../pages/Dashboard.jsx";
+import HistoryPage from "../pages/History.jsx";
 import ProfilePage from "../pages/Profile.jsx";
 import { useAuthenticated } from "../context/auth-context.jsx";
 import "../styles/reset.css";
@@ -24,6 +25,9 @@ function App() {
           </Route>
           <AuthenticateRoute path="/dashboard">
             <DashboardPage />
+          </AuthenticateRoute>
+          <AuthenticateRoute path="/history">
+            <HistoryPage />
           </AuthenticateRoute>
           <AuthenticateRoute path="/profile">
             <ProfilePage />

@@ -11,7 +11,7 @@ import findWithAttr from "../utils/findIndex";
 
 const DashboardStyles = styled.section``;
 
-export default function DashboardPage() {
+export default function HistoryPage() {
   const { deleteAWorkoutLog, getAllWorkoutLogs } = useWorkoutLogsApi();
   const { getAllWorkouts } = useWorkoutApi();
   const [allWorkoutLogs, setWorkoutLogs] = useState(null);
@@ -113,7 +113,7 @@ export default function DashboardPage() {
   }
   return (
     <DashboardStyles>
-      <h1>Dashboard</h1>
+      <h1>History</h1>
       {workoutLogCards}
       {confirmModal}
       {workoutModal}

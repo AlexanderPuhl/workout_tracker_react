@@ -95,12 +95,18 @@ export default function Header() {
       Home
     </Link>
   );
+  let history = null;
   let profile = null;
   let logoutButton = null;
   if (isAuthenticated) {
     homeButton = (
       <Link onClick={() => setNav(!navActive)} to="/dashboard">
         Dashboard
+      </Link>
+    );
+    history = (
+      <Link onClick={() => setNav(!navActive)} to="/history">
+        History
       </Link>
     );
     profile = (
@@ -124,6 +130,7 @@ export default function Header() {
       </Link>
       <nav className={`${navActive ? "active" : ""}`}>
         {homeButton}
+        {history}
         {profile}
         {logoutButton}
       </nav>
