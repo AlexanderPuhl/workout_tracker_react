@@ -8,7 +8,9 @@ const WorkoutLogStyles = styled.div`
   border: 2px solid var(--gray);
   border-radius: 5px;
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem auto;
+  max-width: 800px;
+  position: relative;
   .icon {
     margin: 0 1rem;
     padding: 0;
@@ -39,9 +41,7 @@ export default function WorkoutLogCard({ deleteWorkoutLog, workoutLog, toggleWor
       <button className="icon trash-icon" onClick={() => deleteWorkoutLog(workoutLog.workout_log_id)} type="button">
         <TrashIcon />
       </button>
-      <p>
-        {dateAndTime.date} {dateAndTime.time}
-      </p>
+      <p>{dateAndTime.date}</p>
       <p>Workout Log ID: {workoutLog.workout_log_id}</p>
       <p>Notes: {workoutLog.note}</p>
     </WorkoutLogStyles>
