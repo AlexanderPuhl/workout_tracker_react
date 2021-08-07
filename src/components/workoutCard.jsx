@@ -2,87 +2,29 @@ import React from "react";
 import styled from "styled-components";
 import returnDateTime from "../utils/dateTime";
 
-const WorkoutLogStyles = styled.div`
-  border: 2px solid var(--gray);
-  border-radius: 5px;
+const WorkoutCardStyles = styled.div`
+  border: 1px solid white;
   padding: 1rem;
-  margin-bottom: 1rem;
-  .icon {
-    margin: 0 1rem;
-    padding: 0;
-    position: absolute;
-    svg {
-      width: 2.5rem;
-    }
-  }
-  .view-icon {
-    right: 50px;
-  }
-  .trash-icon {
-    right: 10px;
-  }
-  p:nth-child(1) {
-    border-bottom: 1px solid var(--white);
-    margin-bottom: 1rem;
+  margin: 1rem 0;
+  span {
+    font-weight: bold;
   }
 `;
 
-export default function WorkoutLog({ deleteWorkoutLog, workoutLog, toggleWorkoutModal }) {
-  const dateAndTime = returnDateTime(workoutLog.modified_on);
+export default function WorkoutCard({ workout }) {
+  const setDateTime = returnDateTime(workout.modified_on);
+
   return (
-    <WorkoutLogStyles id={workoutLog.workout_log_id}>
-      <button className="icon view-icon" onClick={() => toggleWorkoutModal(workoutLog.workout_log_id)} type="button">
-        <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.999 511.999">
-          <g>
-            <g>
-              <path
-                d="M508.745,246.041c-4.574-6.257-113.557-153.206-252.748-153.206S7.818,239.784,3.249,246.035
-                c-4.332,5.936-4.332,13.987,0,19.923c4.569,6.257,113.557,153.206,252.748,153.206s248.174-146.95,252.748-153.201
-                C513.083,260.028,513.083,251.971,508.745,246.041z M255.997,385.406c-102.529,0-191.33-97.533-217.617-129.418
-                c26.253-31.913,114.868-129.395,217.617-129.395c102.524,0,191.319,97.516,217.617,129.418
-                C447.361,287.923,358.746,385.406,255.997,385.406z"
-              />
-            </g>
-          </g>
-          <g>
-            <g>
-              <path
-                d="M255.997,154.725c-55.842,0-101.275,45.433-101.275,101.275s45.433,101.275,101.275,101.275
-			          s101.275-45.433,101.275-101.275S311.839,154.725,255.997,154.725z M255.997,323.516c-37.23,0-67.516-30.287-67.516-67.516
-			          s30.287-67.516,67.516-67.516s67.516,30.287,67.516,67.516S293.227,323.516,255.997,323.516z"
-              />
-            </g>
-          </g>
-          <g />
-          <g />
-          <g />
-          <g />
-          <g />
-          <g />
-          <g />
-          <g />
-          <g />
-          <g />
-          <g />
-          <g />
-          <g />
-          <g />
-          <g />
-        </svg>
-      </button>
-      <button className="icon trash-icon" onClick={() => deleteWorkoutLog(workoutLog.workout_log_id)} type="button">
-        <svg fill="white" viewBox="-40 0 427 427.00131" xmlns="http://www.w3.org/2000/svg">
-          <path d="m232.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0" />
-          <path d="m114.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0" />
-          <path d="m28.398438 127.121094v246.378906c0 14.5625 5.339843 28.238281 14.667968 38.050781 9.285156 9.839844 22.207032 15.425781 35.730469 15.449219h189.203125c13.527344-.023438 26.449219-5.609375 35.730469-15.449219 9.328125-9.8125 14.667969-23.488281 14.667969-38.050781v-246.378906c18.542968-4.921875 30.558593-22.835938 28.078124-41.863282-2.484374-19.023437-18.691406-33.253906-37.878906-33.257812h-51.199218v-12.5c.058593-10.511719-4.097657-20.605469-11.539063-28.03125-7.441406-7.421875-17.550781-11.5546875-28.0625-11.46875h-88.796875c-10.511719-.0859375-20.621094 4.046875-28.0625 11.46875-7.441406 7.425781-11.597656 17.519531-11.539062 28.03125v12.5h-51.199219c-19.1875.003906-35.394531 14.234375-37.878907 33.257812-2.480468 19.027344 9.535157 36.941407 28.078126 41.863282zm239.601562 279.878906h-189.203125c-17.097656 0-30.398437-14.6875-30.398437-33.5v-245.5h250v245.5c0 18.8125-13.300782 33.5-30.398438 33.5zm-158.601562-367.5c-.066407-5.207031 1.980468-10.21875 5.675781-13.894531 3.691406-3.675781 8.714843-5.695313 13.925781-5.605469h88.796875c5.210937-.089844 10.234375 1.929688 13.925781 5.605469 3.695313 3.671875 5.742188 8.6875 5.675782 13.894531v12.5h-128zm-71.199219 32.5h270.398437c9.941406 0 18 8.058594 18 18s-8.058594 18-18 18h-270.398437c-9.941407 0-18-8.058594-18-18s8.058593-18 18-18zm0 0" />
-          <path d="m173.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0" />
-        </svg>
-      </button>
+    <WorkoutCardStyles>
       <p>
-        {dateAndTime.date} {dateAndTime.time}
+        <span>Workout ID:</span> {workout.workout_id}
       </p>
-      <p>Workout Log ID: {workoutLog.workout_log_id}</p>
-      <p>Notes: {workoutLog.note}</p>
-    </WorkoutLogStyles>
+      <p>
+        <span>Date and Time:</span> {setDateTime.date} {setDateTime.time}
+      </p>
+      <p>
+        <span>Workout Note:</span> {workout.note}
+      </p>
+    </WorkoutCardStyles>
   );
 }

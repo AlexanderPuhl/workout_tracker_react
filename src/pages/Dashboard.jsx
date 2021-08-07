@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import useWorkoutLogsApi from "../hooks/useWorkoutLogsApi";
-import WorkoutCard from "../components/workoutCard.jsx";
 import ConfirmModal from "../components/ConfirmModal.jsx";
+import WorkoutLogCard from "../components/workoutLogCard.jsx";
 import WorkoutModal from "../components/workoutModal.jsx";
+import useWorkoutApi from "../hooks/useWorkoutApi";
+import useWorkoutLogsApi from "../hooks/useWorkoutLogsApi";
 
 import findWithAttr from "../utils/findIndex";
 
@@ -12,17 +13,22 @@ const DashboardStyles = styled.section``;
 
 export default function DashboardPage() {
   const { deleteAWorkoutLog, getAllWorkoutLogs } = useWorkoutLogsApi();
+  const { getAllWorkouts } = useWorkoutApi();
   const [allWorkoutLogs, setWorkoutLogs] = useState(null);
-
-  const [loading, setLoading] = useState(true);
-  const [workoutModalVisible, setWorkoutModal] = useState(false);
+  const [allWorkouts, setWorkouts] = useState(null);
+  const [filteredWorkouts, setFilteredWorkouts] = useState(null);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
+  const [confirmModalVisible, setConfirmModal] = useState(false);
+  const [workoutModalVisible, setWorkoutModal] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
     const getAllEffect = async () => {
       try {
         const workoutLogsData = await getAllWorkoutLogs();
+        const workoutsData = await getAllWorkouts();
         setWorkoutLogs(workoutLogsData);
+        setWorkouts(workoutsData);
       } catch (e) {
         console.log(e.message);
       }
@@ -36,32 +42,68 @@ export default function DashboardPage() {
     }
   }, [allWorkoutLogs]);
 
-  function toggleModalHandler(workoutLogID) {
-    const index = findWithAttr(allWorkoutLogs, "workout_log_id", workoutLogID);
-    setSelectedWorkout(index);
-    setWorkoutModal(!workoutModalVisible);
-  }
-
   async function deleteWorkoutLogHandler(workoutLogID) {
     try {
       await deleteAWorkoutLog(workoutLogID);
       const workoutLogsData = await getAllWorkoutLogs();
+      setConfirmModal(!confirmModalVisible);
       setWorkoutLogs(workoutLogsData);
     } catch (e) {
       console.log(e.message);
     }
   }
 
-  let workoutLogsList;
+  function toggleConfirmModalHandler(workoutLogID) {
+    const index = findWithAttr(allWorkoutLogs, "workout_log_id", workoutLogID);
+    setSelectedWorkout(index);
+    setConfirmModal(!confirmModalVisible);
+  }
+
+  function toggleModalHandler(workoutLogID) {
+    const index = findWithAttr(allWorkoutLogs, "workout_log_id", workoutLogID);
+    setSelectedWorkout(index);
+    const filteredList = allWorkouts.filter((workout) => workout.workout_log_id === workoutLogID);
+    setFilteredWorkouts(filteredList);
+    setWorkoutModal(!workoutModalVisible);
+  }
+
+  let confirmModal = null;
+  let modalOverlay = null;
+  let workoutLogCards = null;
+  let workoutModal = null;
+
+  if (confirmModalVisible) {
+    confirmModal = (
+      <ConfirmModal
+        className="model-overlay"
+        deleteWorkoutLog={deleteWorkoutLogHandler}
+        toggleConfirmModal={toggleConfirmModalHandler}
+        workoutLog={allWorkoutLogs[selectedWorkout]}
+      />
+    );
+    modalOverlay = <div className="modal-overlay" onClick={() => toggleConfirmModalHandler(0)} role="none" />;
+  }
+
+  if (workoutModalVisible) {
+    workoutModal = (
+      <WorkoutModal
+        toggleWorkoutModal={toggleModalHandler}
+        workouts={filteredWorkouts}
+        workoutLog={allWorkoutLogs[selectedWorkout]}
+      />
+    );
+    modalOverlay = <div className="modal-overlay" onClick={() => toggleModalHandler(0)} role="none" />;
+  }
+
   if (loading) {
-    workoutLogsList = null;
+    workoutLogCards = null;
   } else {
-    workoutLogsList = (
+    workoutLogCards = (
       <div>
         {allWorkoutLogs.map((workoutLog) => (
-          <WorkoutCard
+          <WorkoutLogCard
             key={workoutLog.workout_log_id}
-            deleteWorkoutLog={deleteWorkoutLogHandler}
+            deleteWorkoutLog={toggleConfirmModalHandler}
             toggleWorkoutModal={toggleModalHandler}
             workoutLog={workoutLog}
           />
@@ -69,21 +111,11 @@ export default function DashboardPage() {
       </div>
     );
   }
-
-  let workoutModal = null;
-  let modalOverlay = null;
-  if (workoutModalVisible) {
-    workoutModal = (
-      <WorkoutModal toggleWorkoutModal={toggleModalHandler} workoutLog={allWorkoutLogs[selectedWorkout]} />
-    );
-    modalOverlay = (
-      <div className="modal-overlay" onKeyUp={toggleModalHandler} onClick={() => toggleModalHandler(0)} role="none" />
-    );
-  }
   return (
     <DashboardStyles>
       <h1>Workouts</h1>
-      {workoutLogsList}
+      {workoutLogCards}
+      {confirmModal}
       {workoutModal}
       {modalOverlay}
     </DashboardStyles>

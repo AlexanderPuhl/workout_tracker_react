@@ -66,6 +66,23 @@ const GlobalStyles = createGlobalStyle`
   }
   /* *****END FORM STYLINGS***** */
 
+  /* *****MODAL STYLINGS***** */
+  .modal {
+    background-color: var(--main-bg-color);
+    border: 1px solid var(--gray);
+    border-radius: 5px;
+    color: var(--white);
+    left: 50%;
+    max-width: 1280px;
+    padding: 1rem;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    z-index: 101;
+  }
+  /* *****END MODAL-OVERLAY STYLINGS***** */
+
   /* *****MODAL-OVERLAY STYLINGS***** */
   .modal-overlay {
     background-color: #000;

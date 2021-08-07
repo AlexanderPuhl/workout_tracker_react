@@ -12,8 +12,7 @@ import GlobalStyles from "../styles/GlobalStyles";
 
 function App() {
   const { isAuthenticated } = useAuthenticated();
-  const authedRedirect = (Component) =>
-    isAuthenticated ? <Redirect to="/dashboard" /> : <Component />;
+  const authedRedirect = (Component) => (isAuthenticated ? <Redirect to="/dashboard" /> : <Component />);
   return (
     <>
       <GlobalStyles />
