@@ -2,11 +2,11 @@ import { useState } from "react";
 import { loadAuthToken } from "../utils/local-storage";
 import API_BASE_URL from "../config";
 
-export default function fetchApi(urlRoute, methodType, bodyObj) {
+export default function useFetchApi() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  async function CrudData() {
+  async function crudData(urlRoute, methodType, bodyObj) {
     const authToken = loadAuthToken();
     try {
       let response;
@@ -15,25 +15,23 @@ export default function fetchApi(urlRoute, methodType, bodyObj) {
           method: `${methodType}`,
           headers: {
             "content-type": "application/json",
-            Authorization: `Bearer ${authToken}`
-          }
-        })
-      }
-      else {
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
+      } else {
         response = await fetch(`${API_BASE_URL}${urlRoute}`, {
           method: `${methodType}`,
           headers: {
             "content-type": "application/json",
-            Authorization: `Bearer ${authToken}`
+            Authorization: `Bearer ${authToken}`,
           },
-          body: bodyObj
-        })
+          body: bodyObj,
+        });
       }
       const resData = await response.json();
       setLoading(false);
       return resData;
-    }
-    catch (err) {
+    } catch (err) {
       setLoading(false);
       setError(true);
       return err;
@@ -43,6 +41,6 @@ export default function fetchApi(urlRoute, methodType, bodyObj) {
   return {
     error,
     loading,
-    CrudData
+    crudData
   };
 }
