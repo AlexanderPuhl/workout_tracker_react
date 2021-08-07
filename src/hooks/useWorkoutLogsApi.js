@@ -9,9 +9,7 @@ export default function useWorkoutLogsApi() {
   function getAllWorkoutLogs() {
     setLoading(true);
     setError(false);
-
     const authToken = loadAuthToken();
-
     return fetch(`${API_BASE_URL}/workoutlog`, {
       method: "GET",
       headers: {
@@ -27,13 +25,11 @@ export default function useWorkoutLogsApi() {
       });
   }
 
-  function getAWorkoutLog(workoutLogId) {
+  function getAWorkoutLog(workoutLogID) {
     setLoading(true);
     setError(false);
-
     const authToken = loadAuthToken();
-
-    return fetch(`${API_BASE_URL}/workoutlog/${workoutLogId}`, {
+    return fetch(`${API_BASE_URL}/workoutlog/${workoutLogID}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -48,11 +44,11 @@ export default function useWorkoutLogsApi() {
       });
   }
 
-  async function deleteAWorkoutLog(workoutLogId) {
+  async function deleteAWorkoutLog(workoutLogID) {
     setLoading(true);
     setError(false);
     const authToken = loadAuthToken();
-    return fetch(`${API_BASE_URL}/workoutlog/${workoutLogId}`, {
+    return fetch(`${API_BASE_URL}/workoutlog/${workoutLogID}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${authToken}`,

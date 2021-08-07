@@ -26,13 +26,13 @@ export default function useGetAllApi() {
         return err;
       });
   }
-  function getOneApi(workoutLogId) {
+  function getOneApi(workoutLogID) {
     setLoading(true);
     setError(false);
 
     const authToken = loadAuthToken();
 
-    return fetch(`${API_BASE_URL}/get_all/${workoutLogId}`, {
+    return fetch(`${API_BASE_URL}/get_all/${workoutLogID}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
