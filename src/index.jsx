@@ -4,12 +4,15 @@ import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./context/auth-context.jsx";
 import App from "./components/App.jsx";
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
       <BrowserRouter>
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>,
