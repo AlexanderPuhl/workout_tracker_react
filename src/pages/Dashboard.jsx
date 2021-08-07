@@ -2,18 +2,41 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import ConfirmModal from "../components/ConfirmModal.jsx";
-import WorkoutLogCard from "../components/workoutLogCard.jsx";
 import WorkoutModal from "../components/workoutModal.jsx";
 import useWorkoutApi from "../hooks/useWorkoutApi";
 import useWorkoutLogsApi from "../hooks/useWorkoutLogsApi";
+import useFetchApi from "../hooks/useFetchAPI";
 
 import findWithAttr from "../utils/findIndex";
 
-const DashboardStyles = styled.section``;
+const DashboardStyles = styled.section`
+  h1 {
+    margin: 1rem 0 0;
+  }
+  .profile-section {
+    display: flex;
+    padding: 2rem 0;
+    img {
+      border-radius: 50%;
+      margin-right: 1.5rem;
+      width: 75px;
+    }
+    & > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    p {
+      text-transform: capitalize;
+    }
+  }
+`;
 
 export default function DashboardPage() {
   const { deleteAWorkoutLog, getAllWorkoutLogs } = useWorkoutLogsApi();
   const { getAllWorkouts } = useWorkoutApi();
+  const { crudData } = useFetchApi("/user/get_data", "Get");
+  const [userData, setUserData] = useState(null);
   const [allWorkoutLogs, setWorkoutLogs] = useState(null);
   const [allWorkouts, setWorkouts] = useState(null);
   const [filteredWorkouts, setFilteredWorkouts] = useState(null);
@@ -25,6 +48,9 @@ export default function DashboardPage() {
   useEffect(async () => {
     const getAllEffect = async () => {
       try {
+        const data = await crudData("/user/get_data", "Get");
+        const userInfo = data[0];
+        setUserData(userInfo);
         const workoutLogsData = await getAllWorkoutLogs();
         const workoutsData = await getAllWorkouts();
         setWorkoutLogs(workoutLogsData);
@@ -67,9 +93,9 @@ export default function DashboardPage() {
     setWorkoutModal(!workoutModalVisible);
   }
 
+  let profileCard = null;
   let confirmModal = null;
   let modalOverlay = null;
-  let workoutLogCards = null;
   let workoutModal = null;
 
   if (confirmModalVisible) {
@@ -96,25 +122,25 @@ export default function DashboardPage() {
   }
 
   if (loading) {
-    workoutLogCards = null;
+    profileCard = null;
   } else {
-    workoutLogCards = (
-      <div>
-        {allWorkoutLogs.map((workoutLog) => (
-          <WorkoutLogCard
-            key={workoutLog.workout_log_id}
-            deleteWorkoutLog={toggleConfirmModalHandler}
-            toggleWorkoutModal={toggleModalHandler}
-            workoutLog={workoutLog}
-          />
-        ))}
+    const imageSource = `./images/${userData.username}.png`;
+    profileCard = (
+      <div className="profile-section">
+        <img src={imageSource} alt="profile pic" />
+        <div>
+          <p>{userData.username}</p>
+          <p>2 workouts</p>
+        </div>
       </div>
     );
   }
+
   return (
     <DashboardStyles>
-      <h1>Dashboard</h1>
-      {workoutLogCards}
+      <h1>Profile</h1>
+      {profileCard}
+      <h2>Dashboard</h2>
       {confirmModal}
       {workoutModal}
       {modalOverlay}
