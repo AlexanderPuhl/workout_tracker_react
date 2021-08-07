@@ -2,15 +2,15 @@ import { useState } from "react";
 import { loadAuthToken } from "../utils/local-storage";
 import API_BASE_URL from "../config";
 
-export default function useWorkoutApi() {
+export default function useSetApi() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  function getAllWorkouts() {
+  function getAllSets() {
     setLoading(true);
     setError(false);
     const authToken = loadAuthToken();
-    return fetch(`${API_BASE_URL}/workout`, {
+    return fetch(`${API_BASE_URL}/set`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -25,11 +25,11 @@ export default function useWorkoutApi() {
       });
   }
 
-  function getAWorkout(workoutID) {
+  function getASet(setID) {
     setLoading(true);
     setError(false);
     const authToken = loadAuthToken();
-    return fetch(`${API_BASE_URL}/workout/${workoutID}`, {
+    return fetch(`${API_BASE_URL}/set/${setID}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -44,11 +44,11 @@ export default function useWorkoutApi() {
       });
   }
 
-    async function deleteAWorkout(workoutID) {
+    async function deleteASet(setID) {
       setLoading(true);
       setError(false);
       const authToken = loadAuthToken();
-      return fetch(`${API_BASE_URL}/workoutlog/${workoutID}`, {
+      return fetch(`${API_BASE_URL}/workoutlog/${setID}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -66,8 +66,8 @@ export default function useWorkoutApi() {
   return {
     error,
     loading,
-    getAllWorkouts,
-    getAWorkout,
-    deleteAWorkout,
+    getAllSets,
+    getASet,
+    deleteASet,
   };
 }
