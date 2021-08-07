@@ -16,10 +16,10 @@ const GlobalStyles = createGlobalStyle`
     background-color: var(--main-bg-color);
     color: var(--white);
     font-size: 1.6rem;
-    margin: 0 auto;
-    max-width: 1440px;
   }
   main {
+    margin: 0 auto;
+    max-width: 1440px;
     padding: 1rem;
   }
   h1,h2,h3,h4,h5,h6 {
