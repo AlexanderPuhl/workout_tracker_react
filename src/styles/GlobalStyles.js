@@ -22,9 +22,6 @@ const GlobalStyles = createGlobalStyle`
     max-width: 1440px;
     padding: 1rem;
   }
-  h1,h2,h3,h4,h5,h6 {
-    text-align: center;
-  }
   a {
     color: var(--white);
     padding: 1rem 1.5rem;
@@ -95,6 +92,12 @@ const GlobalStyles = createGlobalStyle`
     z-index: 100;
   }
   /* *****END MODAL-OVERLAY STYLINGS***** */
+
+  @media (min-width: 600px) {
+    main {
+      padding: 1rem 1.5rem;
+    }
+  }
 `;
 
 export default GlobalStyles;

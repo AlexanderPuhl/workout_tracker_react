@@ -33,17 +33,6 @@ const HeaderStyles = styled.header`
       transform: translateY(0px);
       z-index: 1;
     }
-    ul {
-      align-items: center;
-      display: flex;
-      li {
-        list-style: none;
-        margin-right: 1rem;
-        button {
-          margin: 0;
-        }
-      }
-    }
   }
   .hamburger-icon {
     background-color: transparent;
@@ -74,6 +63,9 @@ const HeaderStyles = styled.header`
         }
       }
     }
+  }
+  @media (min-width: 600px) {
+    padding: 0 1.5rem;
   }
 `;
 
