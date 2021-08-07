@@ -4,8 +4,10 @@ import styled from "styled-components";
 import ConfirmModal from "../components/ConfirmModal.jsx";
 import WorkoutLogCard from "../components/workoutLogCard.jsx";
 import WorkoutModal from "../components/workoutModal.jsx";
-import useWorkoutApi from "../hooks/useWorkoutApi";
+
 import useWorkoutLogsApi from "../hooks/useWorkoutLogsApi";
+import useWorkoutApi from "../hooks/useWorkoutApi";
+import useSetApi from "../hooks/useSetApi";
 
 import findWithAttr from "../utils/findIndex";
 
@@ -14,8 +16,10 @@ const DashboardStyles = styled.section``;
 export default function HistoryPage() {
   const { deleteAWorkoutLog, getAllWorkoutLogs } = useWorkoutLogsApi();
   const { getAllWorkouts } = useWorkoutApi();
+  const { getAllSets } = useSetApi();
   const [allWorkoutLogs, setWorkoutLogs] = useState(null);
   const [allWorkouts, setWorkouts] = useState(null);
+  const [allSets, setSets] = useState(null);
   const [filteredWorkouts, setFilteredWorkouts] = useState(null);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [confirmModalVisible, setConfirmModal] = useState(false);
@@ -27,8 +31,10 @@ export default function HistoryPage() {
       try {
         const workoutLogsData = await getAllWorkoutLogs();
         const workoutsData = await getAllWorkouts();
+        const setsData = await getAllSets();
         setWorkoutLogs(workoutLogsData);
         setWorkouts(workoutsData);
+        setSets(setsData);
       } catch (e) {
         console.log(e.message);
       }
@@ -88,8 +94,9 @@ export default function HistoryPage() {
     workoutModal = (
       <WorkoutModal
         toggleWorkoutModal={toggleModalHandler}
-        workouts={filteredWorkouts}
         workoutLog={allWorkoutLogs[selectedWorkout]}
+        workouts={filteredWorkouts}
+        sets={allSets}
       />
     );
     modalOverlay = <div className="modal-overlay" onClick={() => toggleModalHandler(0)} role="none" />;

@@ -71,7 +71,6 @@ const GlobalStyles = createGlobalStyle`
     color: var(--white);
     left: 50%;
     max-width: 1280px;
-    padding: 1rem;
     position: fixed;
     top: 50%;
     transform: translate(-50%, -50%);
