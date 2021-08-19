@@ -40,6 +40,7 @@ export default function DashboardPage() {
   const [allWorkoutLogs, setWorkoutLogs] = useState(null);
   const [allWorkouts, setWorkouts] = useState(null);
   const [filteredWorkouts, setFilteredWorkouts] = useState(null);
+  const [numberOfWorkoutSessions, setnumberOfWorkoutSessions] = useState(null);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [confirmModalVisible, setConfirmModal] = useState(false);
   const [workoutModalVisible, setWorkoutModal] = useState(false);
@@ -55,6 +56,7 @@ export default function DashboardPage() {
         const workoutsData = await getAllWorkouts();
         setWorkoutLogs(workoutLogsData);
         setWorkouts(workoutsData);
+        setnumberOfWorkoutSessions(workoutLogsData.length);
       } catch (e) {
         console.log(e.message);
       }
@@ -130,7 +132,7 @@ export default function DashboardPage() {
         <img src={imgageSource} alt="profile pic" />
         <div>
           <p>{userData.username}</p>
-          <p>2 workouts</p>
+          <p>{numberOfWorkoutSessions} workouts</p>
         </div>
       </div>
     );
