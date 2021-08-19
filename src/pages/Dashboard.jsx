@@ -35,7 +35,7 @@ const DashboardStyles = styled.section`
 export default function DashboardPage() {
   const { deleteAWorkoutLog, getAllWorkoutLogs } = useWorkoutLogsApi();
   const { getAllWorkouts } = useWorkoutApi();
-  const { crudData } = useFetchApi("/user/get_data", "Get");
+  const { crudData } = useFetchApi();
   const [userData, setUserData] = useState(null);
   const [allWorkoutLogs, setWorkoutLogs] = useState(null);
   const [allWorkouts, setWorkouts] = useState(null);
@@ -124,10 +124,10 @@ export default function DashboardPage() {
   if (loading) {
     profileCard = null;
   } else {
-    const imageSource = `./images/${userData.username}.png`;
+    const imgageSource = `./images/${userData.username}.png`;
     profileCard = (
       <div className="profile-section">
-        <img src={imageSource} alt="profile pic" />
+        <img src={imgageSource} alt="profile pic" />
         <div>
           <p>{userData.username}</p>
           <p>2 workouts</p>

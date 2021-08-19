@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import WorkoutCard from "./workoutCard.jsx";
+import useFetchApi from "../hooks/useFetchAPI";
 import XIcon from "./SVG/XIcon.jsx";
+
 import returnDateTime from "../utils/dateTime";
 
 const WorkoutModalStyles = styled.div`
@@ -29,10 +31,10 @@ const WorkoutModalStyles = styled.div`
     padding: 0.5rem 0;
     .modal-body-info {
       border-bottom: 1px solid white;
-      padding: 0 1rem;
+      padding: 1rem;
     }
     .workouts {
-      height: 500px;
+      height: 65vh;
       overflow-y: scroll;
       padding: 0.5rem 0;
     }
@@ -41,6 +43,22 @@ const WorkoutModalStyles = styled.div`
 
 export default function workoutModal({ toggleWorkoutModal, workoutLog, workouts, sets }) {
   const setDateTime = returnDateTime(workoutLog.modified_on);
+  const { crudData } = useFetchApi();
+  const [exerciseData, setExerciseData] = useState(null);
+
+  useEffect(async () => {
+    const getExercisesEffect = async () => {
+      try {
+        const data = await crudData("/exercise", "Get");
+        const exerciseList = data;
+        setExerciseData(exerciseList);
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+    getExercisesEffect();
+  }, []);
+
   return (
     <WorkoutModalStyles key={workoutLog.workout_log_id} className="modal">
       <header>
@@ -59,7 +77,7 @@ export default function workoutModal({ toggleWorkoutModal, workoutLog, workouts,
         </div>
         <div className="workouts">
           {workouts.map((workout) => (
-            <WorkoutCard key={workout.workout_id} workout={workout} sets={sets} />
+            <WorkoutCard key={workout.workout_id} exercises={exerciseData} workout={workout} sets={sets} />
           ))}
         </div>
       </div>
