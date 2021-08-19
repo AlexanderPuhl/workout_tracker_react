@@ -12,17 +12,11 @@ const WorkoutCardStyles = styled.div`
   }
 `;
 
-export default function WorkoutCard({ exercises, sets, workout }) {
+export default function WorkoutCard({ sets, workout }) {
   const setDateTime = returnDateTime(workout.modified_on);
   const filteredSets = sets.filter((set) => set.workout_id === workout.workout_id);
-  // console.log(exercises);
-  // const filteredExercise = exercises.filter((exercise) => exercise.exercise_id === workout.exercise_id)[0];
-  // console.log(filteredExercise);
   return (
     <WorkoutCardStyles>
-      {/* <p>
-        <span>Exercise:</span> {filteredExercise.exercise}
-      </p> */}
       <p>
         <span>Date and Time:</span> {setDateTime.date} {setDateTime.time}
       </p>
