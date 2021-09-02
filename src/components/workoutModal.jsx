@@ -10,7 +10,7 @@ const WorkoutModalStyles = styled.div`
   header {
     border-bottom: 1px solid white;
     padding: 0.5rem 1rem;
-    h1 {
+    h2 {
       margin: 0;
     }
     .close-modal {
@@ -52,8 +52,8 @@ export default function workoutModal({ toggleWorkoutModal, workoutLog, workouts,
         const data = await crudData("/exercise", "Get");
         const exerciseList = data;
         setExerciseData(exerciseList);
-      } catch (e) {
-        console.log(e.message);
+      } catch (error) {
+        console.log(error.message);
       }
     };
     getExercisesEffect();
@@ -62,7 +62,7 @@ export default function workoutModal({ toggleWorkoutModal, workoutLog, workouts,
   return (
     <WorkoutModalStyles key={workoutLog.workout_log_id} className="modal">
       <header>
-        <h1>Workout Modal</h1>
+        <h2>Workout Modal</h2>
         <button className="close-modal" onClick={() => toggleWorkoutModal(0)} type="button">
           <XIcon />
         </button>

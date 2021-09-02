@@ -29,8 +29,8 @@ export default function useAuthentication({ values }) {
         storeAuthInfo(authToken);
         return authToken;
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -50,8 +50,8 @@ export default function useAuthentication({ values }) {
       }),
     })
       .then((res) => res.json())
-      .catch((e) => {
-        console.log(e);
+      .catch((err) => {
+        console.log(err);
       });
 
     return fetch(`${API_BASE_URL}/user/login`, {
@@ -70,8 +70,8 @@ export default function useAuthentication({ values }) {
         storeAuthInfo(authToken);
         return authToken;
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((err) => {
+        console.log(err);
       });
   }
 

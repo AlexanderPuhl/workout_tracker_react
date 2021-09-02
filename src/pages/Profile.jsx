@@ -25,8 +25,8 @@ export default function Profile() {
       const userInfo = data[0];
       setUserData(userInfo);
       setLoading(false);
-    } catch (e) {
-      console.log(e.message);
+    } catch (error) {
+      console.log(error.message);
     }
   }, []);
 

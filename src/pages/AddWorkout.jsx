@@ -11,8 +11,8 @@ export default function AddWorkout() {
       try {
         const exerciseData = await crudData("/exercise", "Get");
         setExercises(exerciseData);
-      } catch (e) {
-        console.log(e.message);
+      } catch (error) {
+        console.log(error.message);
       }
     };
     getExercisesEffect();

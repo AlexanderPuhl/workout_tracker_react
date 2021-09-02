@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
+import AddWorkout from "../components/addWorkout.jsx";
 import ConfirmModal from "../components/ConfirmModal.jsx";
 import WorkoutLogCard from "../components/workoutLogCard.jsx";
 import WorkoutModal from "../components/workoutModal.jsx";
@@ -15,16 +16,17 @@ const DashboardStyles = styled.section``;
 
 export default function HistoryPage() {
   const { deleteAWorkoutLog, getAllWorkoutLogs } = useWorkoutLogsApi();
-  const { getAllWorkouts } = useWorkoutApi();
   const { getAllSets } = useSetApi();
+  const { getAllWorkouts } = useWorkoutApi();
+  const [addWorkoutModalVisible, setAddWorkoutModal] = useState(false);
+  const [allSets, setSets] = useState(null);
   const [allWorkoutLogs, setWorkoutLogs] = useState(null);
   const [allWorkouts, setWorkouts] = useState(null);
-  const [allSets, setSets] = useState(null);
-  const [filteredWorkouts, setFilteredWorkouts] = useState(null);
-  const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [confirmModalVisible, setConfirmModal] = useState(false);
-  const [workoutModalVisible, setWorkoutModal] = useState(false);
+  const [filteredWorkouts, setFilteredWorkouts] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedWorkout, setSelectedWorkout] = useState(null);
+  const [workoutModalVisible, setWorkoutModal] = useState(false);
 
   useEffect(async () => {
     const getAllEffect = async () => {
@@ -35,8 +37,8 @@ export default function HistoryPage() {
         setWorkoutLogs(workoutLogsData);
         setWorkouts(workoutsData);
         setSets(setsData);
-      } catch (e) {
-        console.log(e.message);
+      } catch (error) {
+        console.log(error.message);
       }
     };
     getAllEffect();
@@ -54,9 +56,13 @@ export default function HistoryPage() {
       const workoutLogsData = await getAllWorkoutLogs();
       setConfirmModal(!confirmModalVisible);
       setWorkoutLogs(workoutLogsData);
-    } catch (e) {
-      console.log(e.message);
+    } catch (error) {
+      console.log(error.message);
     }
+  }
+
+  function toggleAddWorkoutModalHandler() {
+    setAddWorkoutModal(!addWorkoutModalVisible);
   }
 
   function toggleConfirmModalHandler(workoutLogID) {
@@ -73,11 +79,15 @@ export default function HistoryPage() {
     setWorkoutModal(!workoutModalVisible);
   }
 
+  let addWorkoutModal = null;
   let confirmModal = null;
   let modalOverlay = null;
   let workoutLogCards = null;
   let workoutModal = null;
 
+  if (addWorkoutModalVisible) {
+    addWorkoutModal = <AddWorkout toggleAddWorkoutModal={toggleAddWorkoutModalHandler} />;
+  }
   if (confirmModalVisible) {
     confirmModal = (
       <ConfirmModal
@@ -121,7 +131,11 @@ export default function HistoryPage() {
   return (
     <DashboardStyles>
       <h1>History</h1>
+      <button onClick={() => toggleAddWorkoutModalHandler()} type="button">
+        Add Workout
+      </button>
       {workoutLogCards}
+      {addWorkoutModal}
       {confirmModal}
       {workoutModal}
       {modalOverlay}

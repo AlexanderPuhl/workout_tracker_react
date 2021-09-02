@@ -19,8 +19,8 @@ function LoginPage() {
     values,
   });
 
-  async function handleClick(e) {
-    e.preventDefault();
+  async function handleClick(event) {
+    event.preventDefault();
     const authToken = await submitLogin(values);
     if (authToken) {
       setAuthenticated(true);
@@ -34,24 +34,24 @@ function LoginPage() {
         <fieldset>
           <label htmlFor="username">
             <input
-              type="text"
-              name="username"
               id="username"
-              placeholder="Username"
-              value={values.username}
+              name="username"
               onChange={updateValue}
+              placeholder="Username"
               required
+              type="text"
+              value={values.username}
             />
           </label>
           <label htmlFor="password">
             <input
-              type="password"
-              name="password"
               id="password"
-              placeholder="Password"
-              value={values.password}
+              name="password"
               onChange={updateValue}
+              placeholder="Password"
               required
+              type="password"
+              value={values.password}
             />
           </label>
           {error && (

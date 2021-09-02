@@ -57,8 +57,8 @@ export default function DashboardPage() {
         setWorkoutLogs(workoutLogsData);
         setWorkouts(workoutsData);
         setnumberOfWorkoutSessions(workoutLogsData.length);
-      } catch (e) {
-        console.log(e.message);
+      } catch (error) {
+        console.log(error.message);
       }
     };
     getAllEffect();
@@ -76,8 +76,8 @@ export default function DashboardPage() {
       const workoutLogsData = await getAllWorkoutLogs();
       setConfirmModal(!confirmModalVisible);
       setWorkoutLogs(workoutLogsData);
-    } catch (e) {
-      console.log(e.message);
+    } catch (error) {
+      console.log(error.message);
     }
   }
 
